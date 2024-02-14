@@ -1,0 +1,30 @@
+.btn {
+	@apply border-[0px] px-4 py-1 text-black rounded-lg;
+}
+.btn:hover {
+	@apply drop-shadow-lg text-white cursor-pointer;
+}
+.btn-primary {
+	@apply bg-blue-500;
+}
+.btn-primary:hover {
+	@apply bg-blue-800;
+}
+.btn-cancel {
+	@apply border-2 border-slate-600;
+}
+.btn-cancel:hover {
+	@apply border-slate-600 text-black;
+}
+.btn-delete {
+	@apply bg-red-600;
+}
+.btn-delete:hover {
+	@apply bg-red-900;
+}
+.btn-edit {
+	@apply bg-green-600;
+}
+.btn-edit:hover {
+	@apply bg-green-900;
+}
