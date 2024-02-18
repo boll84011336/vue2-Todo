@@ -22,18 +22,25 @@
         EDIT
       </button>
 
-      <button
+      <!-- <button
         @click="remove(data.id)"
         class="btn btn-outline-warning btn-sm ms-3"
       >
         DELETE
-      </button>
+      </button> -->
+      <ButtonModel
+        :buttonClass="'btn btn-outline-warning btn-sm ms-3'"
+        :buttonText="'DELETE'"
+        :handleClick="() => remove(data.id)"
+      />
     </li>
   </div>
 </template>
 
 <script>
+import ButtonModel from "./ButtonModel.vue";
 export default {
+  components: { ButtonModel },
   props: ["data", "editingTodoProps"],
   data() {
     return {};
