@@ -59,7 +59,8 @@ export default {
       console.log(id);
       const todo = this.todos.find((item) => item.id === id);
       if (todo) {
-        this.editingTodo = { ...todo }; //這邊拿todo資料給editingTodo 傳進去TodoItem
+        //這邊拿todo資料給editingTodo 傳進去TodoItem
+        this.editingTodo = Object.assign({}, todo);
         todo.editing = !todo.editing;
       }
     },
