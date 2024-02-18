@@ -15,19 +15,12 @@
         />
       </div>
 
-      <button
-        @click="edit(data.id)"
-        class="btn btn-outline-primary btn-sm ms-3"
-      >
-        EDIT
-      </button>
+      <ButtonModel
+        :buttonClass="'btn btn-outline-primary btn-sm ms-3'"
+        :buttonText="'EDIT'"
+        :handleClick="() => edit(data.id)"
+      />
 
-      <!-- <button
-        @click="remove(data.id)"
-        class="btn btn-outline-warning btn-sm ms-3"
-      >
-        DELETE
-      </button> -->
       <ButtonModel
         :buttonClass="'btn btn-outline-warning btn-sm ms-3'"
         :buttonText="'DELETE'"
