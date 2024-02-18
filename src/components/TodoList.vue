@@ -1,57 +1,33 @@
 <template>
   <div id="todoList">
     <h1>Vue 2 TodoList</h1>
-    <div class="d-flex">
-      <input
-        type="text"
-        v-model="todo"
-        class="form-control"
-        @keyup.enter="addTask"
-      />
-      <button class="add btn btn-sm" @click="addTask">Add</button>
-    </div>
+
+    <InputTodo @add="addTask" />
 
     <div id="todos">
       <ul>
-        <li v-for="item in todos" :key="item.id" class="d-flex">
-          <b class="me-3"> {{ item.id }} </b>
-          <div v-if="!item.editing">
-            <span>{{ item.title }}</span>
-          </div>
-
-          <div v-if="item.editing">
-            <input
-              type="text"
-              v-model="editingTodo.title"
-              class="form-control"
-              @keyup.enter="saveEdit(item)"
-            />
-          </div>
-
-          <button
-            @click="editTask(item.id)"
-            class="btn btn-outline-primary btn-sm ms-3"
-          >
-            EDIT
-          </button>
-
-          <button
-            @click="removeTask(item.id)"
-            class="btn btn-outline-warning btn-sm ms-3"
-          >
-            DELETE
-          </button>
-        </li>
+        <TodoItem
+          v-for="todo in todos"
+          :key="todo.id"
+          :data="todo"
+          @removeEmit="removeTask"
+          @editEmit="editTask"
+          @saveEmit="saveEdit"
+          :editingTodoProps="editingTodo"
+        />
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import TodoItem from "./TodoItem.vue";
+import InputTodo from "./InputTodo.vue";
+
 export default {
+  components: { TodoItem, InputTodo },
   data() {
     return {
-      todo: "",
       todos: [
         { id: 1, title: "睡覺", editing: false },
         { id: 2, title: "吃飯", editing: false },
@@ -61,14 +37,13 @@ export default {
     };
   },
   methods: {
-    addTask() {
-      if (this.todo.trim() !== "") {
+    addTask(todo) {
+      if (todo.trim() !== "") {
         this.todos.push({
           id: this.nextId,
-          title: this.todo.trim(),
+          title: todo.trim(),
           editing: false,
         });
-        this.todo = "";
         this.nextId++;
       }
     },
@@ -83,8 +58,8 @@ export default {
       // 把狀態修改
       console.log(id);
       const todo = this.todos.find((item) => item.id === id);
-      if (todo !== "") {
-        this.editingTodo = { ...todo };
+      if (todo) {
+        this.editingTodo = { ...todo }; //這邊拿todo資料給editingTodo 傳進去TodoItem
         todo.editing = !todo.editing;
       }
     },
@@ -108,18 +83,6 @@ h1 {
   color: rgb(43, 237, 237);
 }
 
-.add {
-  margin-left: 10px;
-  border: 3px solid lightblue;
-  padding: 5px 15px;
-  background-color: lightblue;
-  color: black;
-}
-
-li {
-  list-style: none;
-  margin-top: 10px;
-}
 .todo {
   text-align: left;
   cursor: pointer;
